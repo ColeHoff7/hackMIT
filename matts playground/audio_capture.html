@@ -3,6 +3,7 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>MP3 Recorder test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body id="index" onload="">
 
@@ -106,7 +107,7 @@
 
       });
 
-    }   
+    }
 
     var line = 1;
 
@@ -115,28 +116,40 @@
       var tones = obj.document_tone.tone_categories[0].tones;
       $('#output').append('<tr><td>'+line++ +'</td><td>'+tones[0].score+'</td><td>'+tones[1].score+'</td><td>'+tones[2].score+'</td><td>'+tones[3].score+'</td><td>'+tones[4].score+'</td></tr>')
 
-    } 
+    }
   </script>
 
 
- <div class="recorder">
-  Recorder 1
-  <input type="button" class="start"  value="Record" />
-  <input type="button" class="stop" value="Stop" />
-  <pre class="status"></pre>
+ <div class="container">
+   <div class="row">
+     <div class="jumbotron">
+       <h1>Tone Track</h1>
+     </div>
+   </div>
+   <div class="row">
+     <div class="col-md-4">
+       <div class="recorder">
+        <input type="button" class="btn btn-success btn-large btn-block"  value="Record" />
+        <input type="button" class="btn btn-danger btn-large btn-block" value="Stop" />
+      </br>
+        <pre class="status"></pre>
+        <pre id="log"></pre>
+       </div>
+     </div>
+     <div class="col-md-8">
+       <table id="output" class="table table-condensed">
+         <tr><th>Trace</th><th>Anger</th><th>Disgust</th><th>Fear</th><th>Joy</th><th>Sadness</th></tr>
+       </table>
+     </div>
+   </div>
+
+   <div id="playerContainer"></div>
+
+   <div id="dataUrlcontainer"></div>
+
+  </div>
+
  </div>
-
- <!--div><button onclick="upload()">Upload</button></div-->
-
- <div id="playerContainer"></div>
-
- <div id="dataUrlcontainer"></div>
-
- <pre id="log"></pre>
-
- <table id="output">
- <tr><th>Trace</th><th>Anger</th><th>Disgust</th><th>Fear</th><th>Joy</th><th>Sadness</th></tr>
- </table>
 
  </body>
  </html>
