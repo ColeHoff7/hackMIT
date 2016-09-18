@@ -11,7 +11,11 @@ if __name__ == "__main__":
    )  
    
    recording.init();
+   parse-speech();
 
+def parse-speech():
    with open(join(dirname(__file__), 'demo.wav'), 'rb') as audio_file:
-       print(json.dumps(speech_to_text.recognize(
-           audio_file, content_type='audio/wav', continuous = True, timestamps=True), indent=2))
+       text = json.dumps(speech_to_text.recognize(audio_file, content_type='audio/wav', continuous = True, timestamps=True), indent=2))
+       print(text.alternatives);     
+
+
