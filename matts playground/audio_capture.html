@@ -78,9 +78,10 @@
       //$recorder.append(au);
       //$('#playerContainer').append(au);
 
-      startRecording();// start the next chunk
-
       upload(url);
+
+      //startRecording();// start the next chunk
+
     });
 
   };
@@ -98,8 +99,8 @@
       data: { 
           wavBase64: dataURL
        }
-    }).done(function(o) {
-      console.log('saved'); 
+    }).done(function(result) {
+      console.log('saved: '+result); 
 
       });
 
