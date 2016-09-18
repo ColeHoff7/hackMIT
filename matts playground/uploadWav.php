@@ -1,23 +1,23 @@
 <?php
-// requires php5
+//requires php5
 
 define('UPLOAD_DIR', 'uploads/');
-$img = $_POST['wavBase64'];
+$img = file_get_contents('php://input'); 
 $img = str_replace('data:audio/wav;base64,', '', $img);
 $img = str_replace(' ', '+', $img);
 $data = base64_decode($img);
 $i = 0;
-while(file_exists($i.'.wav')){
+while(file_exists('audio/'.$i.'.wav')){
 	$i++;
 }
-$file = $i . '.wav';
+$file = 'audio/'.$i . '.wav';
 $success = file_put_contents($file, $data);
-print $success ? $file : 'Unable to save the file.';
+//print $success ? $file : 'Unable to save the file.';
 
 
-$command = escapeshellcmd('python conversation.py test.wav');
+$command = escapeshellcmd('python conversation.py '.$file);
 $output = shell_exec($command);
-echo $output;
+print $output;
 
 
 ?> 

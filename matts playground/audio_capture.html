@@ -33,7 +33,7 @@
     alert('No web audio support in this browser!');
   }
 
-  $('.recorder .start').on('click', function(){startRecording();chunk_timer = setInterval(chunk, 10000);});
+  $('.recorder .start').on('click', function(){startRecording();chunk_timer = setInterval(chunk, 6000);});
 
   function startRecording() {
     $this = $('.recorder .start').first();
@@ -80,9 +80,9 @@
 
       upload(url);
 
-      //startRecording();// start the next chunk
-
     });
+
+    startRecording();
 
   };
 
@@ -93,18 +93,29 @@
  <script>
     function upload(dataURL){
 
+      //$('body').append(dataURL);
+
       $.ajax({
       type: "POST",
-      url: "uploadWav.php",
-      data: { 
-          wavBase64: dataURL
-       }
-    }).done(function(result) {
-      console.log('saved: '+result); 
+      url: "https://tonetrack.me/uploadWav.php",
+      data: dataURL,
+      contentType: "text/plain"
+      }).done(function(result) {
+        console.log("got data back");
+        processResult(result);
 
       });
 
-    }    
+    }   
+
+    var line = 1;
+
+    function processResult(data){
+      var obj = JSON.parse(data);
+      var tones = obj.document_tone.tone_categories[0].tones;
+      $('#output').append('<tr><td>'+line++ +'</td><td>'+tones[0].score+'</td><td>'+tones[1].score+'</td><td>'+tones[2].score+'</td><td>'+tones[3].score+'</td><td>'+tones[4].score+'</td></tr>')
+
+    } 
   </script>
 
 
@@ -115,13 +126,17 @@
   <pre class="status"></pre>
  </div>
 
- <div><button onclick="upload()">Upload</button></div>
+ <!--div><button onclick="upload()">Upload</button></div-->
 
  <div id="playerContainer"></div>
 
  <div id="dataUrlcontainer"></div>
 
  <pre id="log"></pre>
+
+ <table id="output">
+ <tr><th>Trace</th><th>Anger</th><th>Disgust</th><th>Fear</th><th>Joy</th><th>Sadness</th></tr>
+ </table>
 
  </body>
  </html>
