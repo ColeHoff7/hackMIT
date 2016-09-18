@@ -1,11 +1,12 @@
 import json
+import sys
 import recording
 from os.path import join, dirname
 from watson_developer_cloud import SpeechToTextV1
 from watson_developer_cloud import ToneAnalyzerV3
 
 def parse_speech():
-   with open(join(dirname(__file__), 'demo.wav'), 'rb') as audio_file:
+   with open(join(dirname(__file__), sys.argv[0]), 'rb') as audio_file:
        text = json.dumps(speech_to_text.recognize(audio_file, content_type='audio/wav', continuous = True, timestamps=True), indent=2)
        parsed = json.loads(text)
        p1 = ""
@@ -30,8 +31,8 @@ if __name__ == "__main__":
     password='47XThYg7buM5',
     version='2016-02-11')
 
-   recording.init()
-   print("finished recording")
+   #recording.init()
+   #print("finished recording")
    speech = parse_speech()
    print(speech)
    parse_tone(speech)
