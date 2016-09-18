@@ -1,5 +1,6 @@
 <?php
 // requires php5
+
 define('UPLOAD_DIR', 'uploads/');
 $img = $_POST['wavBase64'];
 $img = str_replace('data:audio/wav;base64,', '', $img);
@@ -12,4 +13,11 @@ while(file_exists($i.'.wav')){
 $file = $i . '.wav';
 $success = file_put_contents($file, $data);
 print $success ? $file : 'Unable to save the file.';
+
+
+$command = escapeshellcmd('python conversation.py test.wav');
+$output = shell_exec($command);
+echo $output;
+
+
 ?> 
